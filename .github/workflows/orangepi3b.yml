@@ -1,0 +1,19 @@
+name: Orange Pi 3B Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Armbian Image
+        uses: armbian/build@v25.8.1
+        with:
+          armbian_token: ${{ secrets.GITHUB_TOKEN }}
+          armbian_runner_clean: true
+          armbian_target: image
+          armbian_branch: v25.8
+          armbian_release: trixie
+          armbian_board: orangepi3b
+          armbian_ui: server
