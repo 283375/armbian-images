@@ -13,7 +13,7 @@ jobs:
           armbian_token: ${{ secrets.GITHUB_TOKEN }}
           armbian_runner_clean: true
           armbian_target: image
-          armbian_branch: v25.8
+          armbian_branch: v25.08
           armbian_release: trixie
           armbian_board: orangepi3b
           armbian_ui: server
