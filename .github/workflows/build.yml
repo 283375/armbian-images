@@ -48,11 +48,11 @@ jobs:
         run: ./compile.sh build ${{ steps.config-name.outputs.CONFIG_NAME }}
 
       - name: Check Output Files
-        if: !cancelled()
+        if: ${{ !cancelled() }}
         run: tree output/
 
       - name: Upload Build Logs
-        if: !cancelled()
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
           name: output-logs
