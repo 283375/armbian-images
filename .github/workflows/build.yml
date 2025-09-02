@@ -1,0 +1,41 @@
+name: Build Armbian Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_cache_key:
+        type: string
+        required: true
+      config_file:
+        type: string
+        required: true
+  workflow_call:
+    inputs:
+      repo_cache_key:
+        type: string
+        required: true
+      config_file:
+        type: string
+        required: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Restore armbian/build Codebase
+        uses: actions/cache/restore@v4
+        with:
+          key: ${{ inputs.repo_cache_key }}
+          path: .
+      
+      - name: Checkout Board Config
+        uses: actions/checkout@v4 
+        with:
+          sparse-checkout: |
+            ${{ inputs.config_file }}
+          sparse-checkout-cone-mode: false
+
+      - name: Check Current Files
+        run: ls -R userpatches
