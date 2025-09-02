@@ -46,6 +46,8 @@ jobs:
           board=${var#config-}; board=${board%.conf}
           echo "CONFIG_NAME=${board}" >> "$GITHUB_OUTPUT"
 
+      - run: tree .
+
       - name: Build Armbian Image
         run: ./compile.sh build ${{ steps.config-name.outputs.CONFIG_NAME }}
 
