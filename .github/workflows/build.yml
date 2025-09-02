@@ -31,13 +31,26 @@ jobs:
         with:
           repository: armbian/build
           ref: ${{ inputs.ref }}
+      
+      - name: Determine Build Cache Key
+        id: cache-key
+        run: |
+          current_ref=$(git rev-parse HEAD)
+          echo "CACHE_KEY=build-cache-${current_ref}" >> "$GITHUB_OUTPUT"
+      
+      - name: Restore Build Cache
+        uses: actions/cache/restore@v4
+        with:
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+          path: cache
 
-      - name: Checkout Board Config
+      - name: Checkout Board Config File
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
             ${{ inputs.config_file }}
           sparse-checkout-cone-mode: false
+          path: mytemp
 
       - name: Parse Config Name
         id: config-name
@@ -46,6 +59,11 @@ jobs:
           board=${var#config-}; board=${board%.conf}
           echo "CONFIG_NAME=${board}" >> "$GITHUB_OUTPUT"
 
+      - name: Move Board Config File
+        run: |
+          mv mytemp/userpatches/*.conf userpatches/
+          rm -rf mytemp
+      
       - run: tree .
 
       - name: Build Armbian Image
@@ -61,6 +79,12 @@ jobs:
         with:
           name: output-logs
           path: output/logs
+
+      - name: Save Build Cache
+        uses: actions/cache/save@v4
+        with:
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+          path: cache
 
       - name: Upload Result
         uses: actions/upload-artifact@v4
