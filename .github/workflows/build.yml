@@ -22,7 +22,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build (${{ inputs.ref }} - ${{ inputs.config_file }})
     runs-on: ubuntu-latest
 
     steps:
