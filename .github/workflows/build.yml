@@ -35,8 +35,9 @@ jobs:
       - name: Determine Build Cache Key
         id: cache-key
         run: |
-          current_ref=$(git rev-parse HEAD)
-          echo "CACHE_KEY=build-cache-${current_ref}" >> "$GITHUB_OUTPUT"
+          echo "CACHE_KEY=build-cache" >> "$GITHUB_OUTPUT"
+        # current_ref=$(git rev-parse HEAD)
+        # echo "CACHE_KEY=build-cache-${current_ref}" >> "$GITHUB_OUTPUT"
       
       - name: Restore Build Cache
         uses: actions/cache/restore@v4
@@ -83,6 +84,10 @@ jobs:
         with:
           name: output-logs
           path: output/logs
+
+      # This causes problem when caching (permission issues)
+      - name: Purge APT Cache
+        run: sudo rm -rf cache/aptcache
 
       - name: Save Build Cache
         uses: actions/cache/save@v4
