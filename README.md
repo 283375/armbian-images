@@ -1,8 +1,12 @@
-# Huh
+# Armbian Images
 
-maybe write something here to make it looks like a real repo
+白嫖 GitHub Actions 构建比较新的 Armbian 镜像。有 [orangepizero3](./userpatches/config-orangepizero3.conf) 和 [orangepi3b](./userpatches/config-orangepi3b.conf)。
 
-## Some mysterious records
+纯自用，不做 bug 修复，大概不接 pr。~~搞得好像有什么可 pr 的一样~~
+
+有问题请移步 Discussions。
+
+## 神秘记录 1
 
 ```console
 # (On WSL2 fedora-remix)

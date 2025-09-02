@@ -1,0 +1,16 @@
+name: Orange Pi 3B Builds
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        type: string
+        required: false
+        default: "v25.08"
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      config_file: config-orangepi3b.conf

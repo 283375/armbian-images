@@ -31,19 +31,6 @@ jobs:
         with:
           repository: armbian/build
           ref: ${{ inputs.ref }}
-      
-      - name: Determine Build Cache Key
-        id: cache-key
-        run: |
-          echo "CACHE_KEY=build-cache" >> "$GITHUB_OUTPUT"
-        # current_ref=$(git rev-parse HEAD)
-        # echo "CACHE_KEY=build-cache-${current_ref}" >> "$GITHUB_OUTPUT"
-      
-      - name: Restore Build Cache
-        uses: actions/cache/restore@v4
-        with:
-          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
-          path: cache
 
       - name: Checkout Board Config File
         uses: actions/checkout@v4
@@ -60,12 +47,25 @@ jobs:
           board=${var#config-}; board=${board%.conf}
           echo "CONFIG_NAME=${board}" >> "$GITHUB_OUTPUT"
 
+      - name: Determine Build Cache Key
+        id: cache-key
+        run: |
+          echo "CACHE_KEY=build-cache-${{ steps.config-name.outputs.CONFIG_NAME }}" >> "$GITHUB_OUTPUT"
+        # current_ref=$(git rev-parse HEAD)
+        # echo "CACHE_KEY=build-cache-${current_ref}" >> "$GITHUB_OUTPUT"
+
+      - name: Restore Build Cache
+        uses: actions/cache/restore@v4
+        with:
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+          path: cache
+
       - name: Move Board Config File
         run: |
           mkdir userpatches
           mv mytemp/userpatches/*.conf userpatches/
           rm -rf mytemp
-      
+
       - name: Setup QEMU
         run: |
           sudo apt update

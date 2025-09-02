@@ -1,0 +1,16 @@
+name: Orange Pi Zero 3 Builds
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        type: string
+        required: false
+        default: "v25.08"
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      config_file: config-orangepizero3.conf
