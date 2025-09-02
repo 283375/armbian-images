@@ -65,7 +65,10 @@ jobs:
           mv mytemp/userpatches/*.conf userpatches/
           rm -rf mytemp
       
-      - run: tree .
+      - name: Setup QEMU
+        run: |
+          apt update
+          apt install -y qemu-user-static
 
       - name: Build Armbian Image
         run: ./compile.sh build ${{ steps.config-name.outputs.CONFIG_NAME }}
