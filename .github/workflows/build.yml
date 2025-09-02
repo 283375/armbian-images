@@ -3,17 +3,19 @@ name: Build Armbian Image
 on:
   workflow_dispatch:
     inputs:
-      repo_cache_key:
+      ref:
         type: string
-        required: true
+        required: false
+        default: "main"
       config_file:
         type: string
         required: true
   workflow_call:
     inputs:
-      repo_cache_key:
+      ref:
         type: string
-        required: true
+        required: false
+        default: "main"
       config_file:
         type: string
         required: true
@@ -24,14 +26,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Restore armbian/build Codebase
-        uses: actions/cache/restore@v4
+      - name: Checkout armbian/build
+        uses: actions/checkout@v4
         with:
-          key: ${{ inputs.repo_cache_key }}
-          path: .
-      
+          repository: armbian/build
+          ref: ${{ inputs.ref }}
+
       - name: Checkout Board Config
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
         with:
           sparse-checkout: |
             ${{ inputs.config_file }}
