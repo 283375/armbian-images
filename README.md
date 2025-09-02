@@ -15,15 +15,15 @@ $ time xz -k -$level Armbian-unofficial_25.11.0-trunk_Orangepi3b_trixie_current_
 $ du -h $file && du $file && rm $file
 ```
 
-| Level    | Compress Time                                      | Diff             | File Size        | Diff               |
-| -------- | -------------------------------------------------- | ---------------- | ---------------- | ------------------ |
-| Original | /                                                  | /                | 2.4G (2,457,600) | /                  |
-| 1        | real 1m12.677s<br>user 4m24.581s<br>sys 0m6.375s   | /                | 625M (639,184)   | -1.78G (1,818,416) |
-| 2        | real 1m16.414s<br>user 6m21.102s<br>sys 0m6.966s   | +3.7s            | 609M (623,012)   | -16,172            |
-| 3        | real 1m22.589s<br>user 9m9.354s<br>sys 0m8.491s    | +6.2s            | 594M (607,868)   | -15,144            |
-| 4        | real 1m34.023s<br>user 13m47.625s<br>sys 0m10.564s | +11.4s           | 570M (583,552)   | -24,316            |
-| 5        | real 2m3.528s<br>user 19m17.293s<br>sys 0m10.058s  | +29.5s           | 549M (561,632)   | -21,920            |
-| 6        | real 2m16.514s<br>user 21m44.067s<br>sys 0m14.463s | +13s             | 546M (558,576)   | -3,056             |
-| 7        | real 3m33.362s<br>user 16m30.236s<br>sys 0m7.694s  | +1m16.9s (76.9)  | 537M (549,396)   | -9,180             |
-| 8        | real 7m0.957s<br>user 13m34.520s<br>sys 0m5.964s   | +3m27.6s (207.6) | 527M (539,484)   | -9,912             |
-| 9        | real 12m55.056s<br>user 12m53.431s<br>sys 0m4.937s | +5m54.1s (354.1) | 506M (517,488)   | -21,996            |
+| Level    | Compress Time | Diff   | File Size                          | Compression Ratio |
+| -------- | ------------- | ------ | ---------------------------------- | ----------------- |
+| Original | /             | /      | 2.4G<br><small>(2,457,600)</small> | /                 |
+| 1        | 1m12.677s     | /      | 625M<br><small>(639,184)</small>   | 0.260             |
+| 2        | 1m16.414s     | +4s    | 609M<br><small>(623,012)</small>   | 0.254             |
+| 3        | 1m22.589s     | +6s    | 594M<br><small>(607,868)</small>   | 0.247             |
+| 4        | 1m34.023s     | +11s   | 570M<br><small>(583,552)</small>   | 0.237             |
+| 5        | 2m3.528s      | +29s   | 549M<br><small>(561,632)</small>   | 0.229             |
+| 6        | 2m16.514s     | +13s   | 546M<br><small>(558,576)</small>   | 0.227             |
+| 7        | 3m33.362s     | +1m17s | 537M<br><small>(549,396)</small>   | 0.224             |
+| 8        | 7m0.957s      | +3m27s | 527M<br><small>(539,484)</small>   | 0.220             |
+| 9        | 12m55.056s    | +5m54s | 506M<br><small>(517,488)</small>   | 0.211             |
