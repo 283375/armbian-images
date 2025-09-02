@@ -61,6 +61,7 @@ jobs:
 
       - name: Move Board Config File
         run: |
+          mkdir userpatches
           mv mytemp/userpatches/*.conf userpatches/
           rm -rf mytemp
       
